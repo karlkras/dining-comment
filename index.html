@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="./src/choices.js"></script>
+  <script src="./src/CommentSupport.js" type="module" defer></script>
+  <link rel="stylesheet" href="./styles/choices.css"/>
+  <link rel="stylesheet" href="./styles/main.css"/>
+  <link rel="stylesheet" href="./styles/uc-form-styles.css"/>
+  <script type="module" src="./src/components/modal/modal.js"></script>
+  <title>Choice Demo</title>
+</head>
+<body>
+<template id="general-selection-modal-template">
+  <uc-modal title="Select One of the following" id="general-selection-modal" type="form">
+    <form id="general-selection-form">
+      <div class="form-body">
+        <div class="row">
+          <div class="input-group">
+            <label for="selection-type">Site Eating Establishments</label>
+            <select id="selection-type" name="selection-type" required>
+              <option value="">--Please choose one--</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div id="actions">
+        <button type="button" class="cancel">Cancel</button>
+        <button type="submit" class="submit">Okay</button>
+      </div>
+    </form>
+  </uc-modal>
+</template>
+
+<div id="root"></div>
+
+</body>
+</html>
