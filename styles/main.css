@@ -1,7 +1,20 @@
+body {
+    font-family:
+        'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
 .error-msg {
     color: red;
     font-style: italic;
     font-weight: bolder;
+}
+
+input[type='text']:read-only:focus {
+    border: none;
+    outline: none;
 }
 
 .star {
@@ -9,8 +22,10 @@
     font-size: 24px;
 }
 
-.star:hover, .star.selected {
+.star:hover,
+.star.selected {
     color: orange;
+    font-weight: bolder;
 }
 
 .title {
@@ -38,12 +53,15 @@
     width: 90%;
 }
 
-#comment-card-wrapper header h2{
+#comment-card-wrapper header h2 {
     margin-bottom: 0;
     font-variant-caps: small-caps;
 }
-#comment-card-wrapper header h4{
+
+#comment-card-wrapper header h4,
+#comment-card-wrapper header h1 {
     margin-top: 0;
+    margin-bottom: 0;
     font-variant-caps: all-small-caps;
 }
 
@@ -59,6 +77,22 @@
     font-variant-caps: small-caps;
 }
 
+#comment-card-wrapper header .date-field {
+    width: 90%;
+    display: flex;
+    padding: 10px;
+}
+
+#comment-card-wrapper header .date-field label {
+    flex: 1;
+}
+
+#comment-card-wrapper header .date-field::after {
+    flex: 1;
+    content: '';
+}
+
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -71,7 +105,10 @@ input::-webkit-inner-spin-button {
 }
 
 #comment-card-wrapper table .ratings {
-    min-width: 150px;
+    min-width: 160px;
+    display: flex;
+    justify-items: center;
+    gap: 7px;
 }
 
 #comment-card-wrapper table .title {
@@ -103,5 +140,3 @@ tbody {
 .submit button:hover {
     background-color: #14363e;
 }
-
-

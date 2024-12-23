@@ -36,4 +36,10 @@ export const headerContent = `
       <h2>Hillside</h2>
       <h4>Dining comment card</h4>
       <div class="line"></div>
+      <h1>{DINING_LOCATION}</h1>
+      <div class="line"></div>
+      <div class="date-field">
+        <label for="visit-date">Date:</label>
+        <input type="date" id="visit-date"/>
+      </div>
 `

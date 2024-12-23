@@ -9,19 +9,24 @@ import {
   doGeneralSelectDlg
 } from "./GeneralModalService.js";
 
+import {
+  DINING_OPTIONS
+} from "./static.js";
+
 let theDiningLocationSelect;
 
 
 const ratingLines = [
-  {name: "Flavor", starsId: "flavor-star-rating"},
-  {name: "Presentation", starsId: "presentation-star-rating"},
-  {name: "Temperature", starsId: "temperature-star-rating"},
-  {name: "Wait Time", starsId: "wait-time-star-rating"}
+  { name: "Flavor", starsId: "flavor-star-rating" },
+  { name: "Presentation", starsId: "presentation-star-rating" },
+  { name: "Temperature", starsId: "temperature-star-rating" },
+  { name: "Wait Time", starsId: "wait-time-star-rating" }
 ];
 
 const createCommentCardHeader = () => {
   const cardHeader = document.createElement("header");
-  cardHeader.innerHTML = headerContent;
+  cardHeader.innerHTML = headerContent
+    .replace("{DINING_LOCATION}", sessionStorage.getItem("diningLocation"));
   return cardHeader;
 }
 
@@ -97,45 +102,54 @@ const hookUpRatingControls = () => {
   })
 }
 
-const init = () => {
-  doGeneralSelectDlg("This is a title",
-    {
-      item1: {name: "Item 1 name"},
-      item2: {name: "Item 2 name"}
-    },
+const selectDiningLocation = () => {
+  doGeneralSelectDlg("Choose the dining establishment:",
+    DINING_OPTIONS,
     (theChoice, extra) => {
-      console.log(theChoice)
-    },
-    {extra: "data"}
+      sessionStorage.setItem("diningLocation", DINING_OPTIONS[theChoice].name)
+    }
   )
+}
+
+const doCommentCardProcess = () => {
   // first clear out the root on main page.
-  // const theRoot = document.querySelector("#root");
-  // theRoot.innerHTML = "";
-  // theRoot.append(generateCommentCard());
-  // // now hook up ratings.
-  // hookUpRatingControls();
-  // document.addEventListener("submit", e => {
-  //   e.preventDefault();
-  //   const theInputs = [...e.target.querySelectorAll(".ratings")];
-  //
-  //   const theResults = {};
-  //
-  //   theInputs.forEach(anInput => {
-  //     const idName = anInput.closest("tr")
-  //       .querySelector(".title")
-  //       .value.toLowerCase()
-  //       .replace(" ", "-");
-  //     theResults[idName] = {
-  //       rating: anInput.closest("table").querySelector(`#${idName}-star-rating`).querySelectorAll(".selected").length,
-  //       comments: anInput.closest("table").querySelector(`#${idName}-comments`).value.trim()
-  //     }
-  //   });
-  //   alert(JSON.stringify(theResults));
-  //
-  //   [...document.querySelectorAll(".star")].forEach(aStar => aStar.classList.remove('selected'));
-  //   e.target.reset();
-  //
-  // });
+  const theRoot = document.querySelector("#root");
+  theRoot.innerHTML = "";
+  theRoot.append(generateCommentCard());
+  // now hook up ratings.
+  hookUpRatingControls();
+  document.addEventListener("submit", e => {
+    e.preventDefault();
+    const theInputs = [...e.target.querySelectorAll(".ratings")];
+
+    const theResults = {};
+
+    theInputs.forEach(anInput => {
+      const idName = anInput.closest("tr")
+        .querySelector(".title")
+        .value.toLowerCase()
+        .replace(" ", "-");
+      theResults[idName] = {
+        rating: anInput.closest("table").querySelector(`#${idName}-star-rating`).querySelectorAll(".selected").length,
+        comments: anInput.closest("table").querySelector(`#${idName}-comments`).value.trim()
+      }
+    });
+    alert(JSON.stringify(theResults));
+
+    [...document.querySelectorAll(".star")].forEach(aStar => aStar.classList.remove('selected'));
+    e.target.reset();
+
+  });
+
+}
+
+const init = () => {
+  if (!sessionStorage.getItem("diningLocation")) {
+    selectDiningLocation();
+    doCommentCardProcess();
+  } else {
+    doCommentCardProcess();
+  }
 }
 
 init();

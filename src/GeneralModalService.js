@@ -4,9 +4,9 @@ import {
 
 
 const loadGeneralSelectDialog = (title, selectItems) => {
-  cleanDialogInstance(document.getElementById("root"));
+  cleanDialogInstance("dialog-location");
 
-  const dialogLocation = document.getElementById("root");
+  const dialogLocation = document.getElementById("dialog-location");
   const bulkTemplate = document.getElementById('general-selection-modal-template');
 
   const clonedTemplate = bulkTemplate.content.cloneNode(true);
@@ -35,11 +35,11 @@ const generalSelectDialogEvents = (callback, extraData = null) => {
 
     callback(data.get("selection-type"), extraData);
 
-    cleanDialogInstance("root");
+    cleanDialogInstance("dialog-location");
   });
 
   cancelButton.addEventListener('click', () => {
-    cleanDialogInstance("root");
+    cleanDialogInstance("dialog-location");
   });
 }
 

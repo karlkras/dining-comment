@@ -1,9 +1,10 @@
 
 
 export const cleanDialogInstance = (dialogLocation) => {
-  let child = dialogLocation.lastElementChild;
+  const theLocation = document.querySelector(`#${dialogLocation}`)
+  let child = theLocation.lastElementChild;
   while (child) {
-    dialogLocation.removeChild(child);
-    child = dialogLocation.lastElementChild;
+    theLocation.removeChild(child);
+    child = theLocation.lastElementChild;
   }
 };
